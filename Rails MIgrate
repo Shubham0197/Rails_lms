@@ -3,3 +3,36 @@ itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
 -- create_table(:books)
    -> 0.0106s
 == 20220519155639 CreateBooks: migrated (0.0107s) =============================
+
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails generate model publisher
+      invoke  active_record
+      create    db/migrate/20220519155640_create_publishers.rb
+      create    app/models/publisher.rb
+      invoke    test_unit
+      create      test/models/publisher_test.rb
+      create      test/fixtures/publishers.yml
+  itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+== 20220519155640 CreatePublishers: migrating =================================
+-- create_table(:publishers)
+   -> 0.0040s
+== 20220519155640 CreatePublishers: migrated (0.0040s) ========================
+
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails g migration add_address_column_in_publishers_table
+      invoke  active_record
+      create    db/migrate/20220519155641_add_address_column_in_publishers_table.rb
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+== 20220519155641 AddAddressColumnInPublishersTable: migrating ================
+-- add_column(:publishers, :address, :string)
+   -> 0.0012s
+   itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+   == 20220519155640 CreatePublishers: migrating =================================
+   -- create_table(:publishers)
+      -> 0.0040s
+   == 20220519155640 CreatePublishers: migrated (0.0040s) ========================
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails g migration add_address_column_in_publishers_table
+         invoke  active_record
+         create    db/migrate/20220519155641_add_address_column_in_publishers_table.rb
+   itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+   == 20220519155641 AddAddressColumnInPublishersTable: migrating ================
+   -- add_column(:publishers, :address, :string)
+      -> 0.0012s
