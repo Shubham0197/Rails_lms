@@ -1,0 +1,5 @@
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+== 20220519155639 CreateBooks: migrating ======================================
+-- create_table(:books)
+   -> 0.0106s
+== 20220519155639 CreateBooks: migrated (0.0107s) =============================
