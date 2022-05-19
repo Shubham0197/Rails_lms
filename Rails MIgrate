@@ -36,3 +36,15 @@ itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails g migration a
    == 20220519155641 AddAddressColumnInPublishersTable: migrating ================
    -- add_column(:publishers, :address, :string)
       -> 0.0012s
+
+To see all tables in db in rails change
+3.0.0 :004 > ActiveRecord::Base.connection.tables
+ => ["schema_migrations", "ar_internal_metadata", "books", "publishers"] 
+ 3.0.0 :008 > book.class
+ => Book(id: integer, title: text, volume: text, publisher_id: integer, quantity: integer, issued_quantity: integer, type_id: integer, created_at: datetime, updated_at: datetime) 
+
+ 3.0.0 :011 > book.save
+  TRANSACTION (0.3ms)  BEGIN
+  Book Create (1.0ms)  INSERT INTO "books" ("title", "volume", "publisher_id", "quantity", "issued_quantity", "type_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["title", "Something"], ["volume", nil], ["publisher_id", nil], ["quantity", nil], ["issued_quantity", nil], ["type_id", nil], ["created_at", "2022-05-19 14:24:43.926018"], ["updated_at", "2022-05-19 14:24:43.926018"]]
+  TRANSACTION (6.9ms)  COMMIT   
+
