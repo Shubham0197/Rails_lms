@@ -48,3 +48,25 @@ To see all tables in db in rails change
   Book Create (1.0ms)  INSERT INTO "books" ("title", "volume", "publisher_id", "quantity", "issued_quantity", "type_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["title", "Something"], ["volume", nil], ["publisher_id", nil], ["quantity", nil], ["issued_quantity", nil], ["type_id", nil], ["created_at", "2022-05-19 14:24:43.926018"], ["updated_at", "2022-05-19 14:24:43.926018"]]
   TRANSACTION (6.9ms)  COMMIT   
 
+  itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+  == 20220519155642 AddingForegnKeyInBooksTableFromPublishersTable: migrating ===
+  -- add_foreign_key(:books, :publishers)
+     -> 0.0101s
+  == 20220519155642 AddingForegnKeyInBooksTableFromPublishersTable: migrated (0.0101s) 
+
+  Table "public.books"
+  Column      |              Type              | Collation | Nullable |              Default              
+-----------------+--------------------------------+-----------+----------+-----------------------------------
+id              | bigint                         |           | not null | nextval('books_id_seq'::regclass)
+title           | text                           |           |          | 
+volume          | text                           |           |          | 
+publisher_id    | integer                        |           |          | 
+quantity        | integer                        |           |          | 
+issued_quantity | integer                        |           |          | 
+type_id         | integer                        |           |          | 
+created_at      | timestamp(6) without time zone |           | not null | 
+updated_at      | timestamp(6) without time zone |           | not null | 
+Indexes:
+ "books_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+ "fk_rails_d7ae2b039e" FOREIGN KEY (publisher_id) REFERENCES publishers(id)
