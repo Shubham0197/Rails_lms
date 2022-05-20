@@ -200,3 +200,25 @@ You can also use the old style of migration using up and down methods instead of
 -- drop_table(:distributors)
    -> 0.0040s
 == 20220520114626 UsingUpDownMethos: reverted (0.0069s) =======================
+
+Resetting the Database
+The bin/rails db:reset command will drop the database and set it up again. 
+This is functionally equivalent to bin/rails db:drop db:setup.
+
+Running in different environments
+By default running bin/rails db:migrate will run in the development environment. 
+To run migrations against another environment you can specify it using the RAILS_ENV environment variable while running the command. 
+to run migrations against the test environment 
+$ bin/rails db:migrate RAILS_ENV=test
+
+Reversible 
+If for a migration to do something that Active Record doesnt know how to reverse, we use reversible
+it can be used like as above up down method 
+def change
+  reversible do |dir|
+    change_table :books do |t|
+      dir.up   { t.change :quantity, :integer }
+      dir.down { t.change :quantity, :string }
+    end
+  end
+end
