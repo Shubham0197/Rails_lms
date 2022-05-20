@@ -70,3 +70,33 @@ Indexes:
  "books_pkey" PRIMARY KEY, btree (id)
 Foreign-key constraints:
  "fk_rails_d7ae2b039e" FOREIGN KEY (publisher_id) REFERENCES publishers(id)
+
+ 3.0.0 :001 > Publisher.create(name: "India Publishing House")
+  TRANSACTION (0.1ms)  BEGIN
+  Publisher Create (0.3ms)  INSERT INTO "publishers" ("name", "created_at", "updated_at", "address") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "India Publishing House"], ["created_at", "2022-05-20 11:18:44.814652"], ["updated_at", "2022-05-20 11:18:44.814652"], ["address", nil]]    
+  TRANSACTION (6.6ms)  COMMIT                                    
+ =>                                                              
+#<Publisher:0x00007ff5709d9c30                                   
+ id: 1,                                                          
+ name: "India Publishing House",                                 
+ created_at: Fri, 20 May 2022 11:18:44.814652000 UTC +00:00,     
+ updated_at: Fri, 20 May 2022 11:18:44.814652000 UTC +00:00,     
+ address: nil>  
+    
+ 3.0.0 :010 > publisher1 = Publisher.find(1)
+  Publisher Load (0.6ms)  SELECT "publishers".* FROM "publishers" WHERE "publishers"."id" = $1 LIMIT $2  [["id", 1], ["LIMIT", 1]]                                                 
+ =>                                                               
+#<Publisher:0x000055c4ca6a7b80  
+3.0.0 :012 > publisher1.name
+=> "India Publishing House" 
+3.0.0 :013 > 
+
+3.0.0 :015 > publisher1
+ => 
+#<Publisher:0x000055c4ca6a7b80                                    
+ id: 1,                                                           
+ name: "India Publishing House",                                  
+ created_at: Fri, 20 May 2022 11:18:44.814652000 UTC +00:00,      
+ updated_at: Fri, 20 May 2022 11:18:44.814652000 UTC +00:00,      
+ address: "Delhi">    
+
