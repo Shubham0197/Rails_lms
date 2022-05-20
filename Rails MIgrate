@@ -100,3 +100,70 @@ Foreign-key constraints:
  updated_at: Fri, 20 May 2022 11:18:44.814652000 UTC +00:00,      
  address: "Delhi">    
 
+ itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails g model book_tpe
+      invoke  active_record
+      create    db/migrate/20220520112834_create_book_tpes.rb
+      create    app/models/book_tpe.rb
+      invoke    test_unit
+      create      test/models/book_tpe_test.rb
+      create      test/fixtures/book_tpes.yml
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+== 20220520112834 CreateBookTpes: migrating ===================================
+-- create_table(:book_tpes)
+   -> 0.0051s
+== 20220520112834 CreateBookTpes: migrated (0.0052s) ==========================
+
+
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+== 20220520113049 RenamingColumnBookType: migrating ===========================
+-- rename_column(:book_tpes, :subtype, :sub_type)
+   -> 0.0020s
+== 20220520113049 RenamingColumnBookType: migrated (0.0020s) ==================
+
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+== 20220520113254 RenamingTableBookType: migrating ============================
+-- rename_table("book_tpes", "book_types")
+   -> 0.0038s
+== 20220520113254 RenamingTableBookType: migrated (0.0038s) ===================
+
+itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+== 20220520113506 AddingForegnKeyInBooksTableFromBookTypeTable: migrating =====
+-- add_column(:books, :book_type_id, :integer)
+   -> 0.0015s
+-- add_foreign_key(:books, :book_types)
+   -> 0.0013s
+-- remove_column(:books, :type_id)
+   -> 0.0046s
+== 20220520113506 AddingForegnKeyInBooksTableFromBookTypeTable: migrated (0.0075s) 
+
+Table "public.book_types"
+Column   |              Type              | Collation | Nullable |                Default                 
+------------+--------------------------------+-----------+----------+----------------------------------------
+id         | bigint                         |           | not null | nextval('book_types_id_seq'::regclass)
+type       | text                           |           |          | 
+sub_type   | text                           |           |          | 
+created_at | timestamp(6) without time zone |           | not null | 
+updated_at | timestamp(6) without time zone |           | not null | 
+Indexes:
+ "book_types_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+ TABLE "books" CONSTRAINT "fk_rails_88bd3fc602" FOREIGN KEY (book_type_id) REFERENCES book_types(id)
+
+
+Table "public.books"
+Column      |              Type              | Collation | Nullable |              Default              
+-----------------+--------------------------------+-----------+----------+-----------------------------------
+id              | bigint                         |           | not null | nextval('books_id_seq'::regclass)
+title           | text                           |           |          | 
+volume          | text                           |           |          | 
+publisher_id    | integer                        |           |          | 
+quantity        | integer                        |           |          | 
+issued_quantity | integer                        |           |          | 
+created_at      | timestamp(6) without time zone |           | not null | 
+updated_at      | timestamp(6) without time zone |           | not null | 
+book_type_id    | integer                        |           |          | 
+Indexes:
+"books_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+"fk_rails_88bd3fc602" FOREIGN KEY (book_type_id) REFERENCES book_types(id)
+"fk_rails_d7ae2b039e" FOREIGN KEY (publisher_id) REFERENCES publishers(id)
