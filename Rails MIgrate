@@ -167,3 +167,36 @@ Indexes:
 Foreign-key constraints:
 "fk_rails_88bd3fc602" FOREIGN KEY (book_type_id) REFERENCES book_types(id)
 "fk_rails_d7ae2b039e" FOREIGN KEY (publisher_id) REFERENCES publishers(id)
+
+Using the up/down Methods
+You can also use the old style of migration using up and down methods instead of the change method.
+ The up method should describe the transformation youd like to make to your schema, 
+ and the down method of your migration should revert the transformations done by the up method. 
+ In other words, the database schema should be unchanged if you do an up followed by a down. 
+  For example, if you create a table in the up method, you should drop it in the down method. 
+  It is wise to perform the transformations in precisely the reverse order they were made in the up method.
+
+  itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:migrate
+  == 20220520114626 UsingUpDownMethos: migrating ================================
+  -- create_table(:distributors)
+     -> 0.0077s
+  -- execute("      ALTER TABLE distributors\n        ADD CONSTRAINT zipchk\n        CHECK (char_length(zipcode) = 5);\n")
+     -> 0.0008s
+  -- add_column(:books, :home_page_url, :string)
+     -> 0.0008s
+  -- rename_column(:books, :title, :books_name)
+     -> 0.0014s
+  == 20220520114626 UsingUpDownMethos: migrated (0.0109s) =======================
+  
+
+  itsacheckmate@itsacheckmate:~/Training/Ruby/Rails/Rails_lms$ rails db:rollback
+== 20220520114626 UsingUpDownMethos: reverting ================================
+-- rename_column(:books, :books_name, :title)
+   -> 0.0017s
+-- remove_column(:books, :home_page_url)
+   -> 0.0005s
+-- execute("      ALTER TABLE distributors\n        DROP CONSTRAINT zipchk\n")
+   -> 0.0006s
+-- drop_table(:distributors)
+   -> 0.0040s
+== 20220520114626 UsingUpDownMethos: reverted (0.0069s) =======================
